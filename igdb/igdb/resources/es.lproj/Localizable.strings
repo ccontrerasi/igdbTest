@@ -9,3 +9,6 @@
 
 "welcome.view.controller.title" = "Welcome to our APP";
 "welcome.view.controller.button.next" = "Start!";
+"welcome.view.controller.expain" = "Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!";
+
+"home.view.controller.title" = "List of games";

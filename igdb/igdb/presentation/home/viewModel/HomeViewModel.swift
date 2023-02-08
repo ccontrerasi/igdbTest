@@ -30,16 +30,19 @@ final class HomeViewModel: ObservableObject, HomeViewModelProtocol, IHomeFlowSta
     // MARK: - Public
     func welcomeShowed() {
         Preferences.showWelcome(false)
-        state = .result(Home(status: .home))
+        state = .result(Home(status: .home, games: []))
         showWelcome = false
     }
     
     func launchLoading() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+            guard let `self` = self else { return }
             if !Preferences.showWelcome() {
-                self?.state = .result(Home(status: .home))
+                self.state = .loading
+                self.useCase.execute()
+                    .assign(to: &self.$state)
             } else {
-                self?.showWelcome = Preferences.showWelcome()
+                self.showWelcome = Preferences.showWelcome()
             }
         }
     }

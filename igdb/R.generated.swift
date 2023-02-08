@@ -465,10 +465,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 2 images.
+  /// This `R.image` struct is generated, and contains static references to 3 images.
   struct image {
     /// Image `backgroundSplash`.
     static let backgroundSplash = Rswift.ImageResource(bundle: R.hostingBundle, name: "backgroundSplash")
+    /// Image `ic_search`.
+    static let ic_search = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_search")
     /// Image `welcomeTop`.
     static let welcomeTop = Rswift.ImageResource(bundle: R.hostingBundle, name: "welcomeTop")
 
@@ -476,6 +478,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "backgroundSplash", bundle: ..., traitCollection: ...)`
     static func backgroundSplash(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.backgroundSplash, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_search", bundle: ..., traitCollection: ...)`
+    static func ic_search(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_search, compatibleWith: traitCollection)
     }
     #endif
 
@@ -491,12 +500,24 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 3 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 6 localization keys.
     struct localizable {
       /// en translation: Example APP !!
       ///
       /// Locales: en, es
       static let splashViewControllerTitle = Rswift.StringResource(key: "splash.view.controller.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// en translation: List of games
+      ///
+      /// Locales: en, es
+      static let homeViewControllerTitle = Rswift.StringResource(key: "home.view.controller.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
+      /// en translation: No results
+      ///
+      /// Locales: en
+      static let generalNoResults = Rswift.StringResource(key: "general.no.results", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!
+      ///
+      /// Locales: en, es
+      static let welcomeViewControllerExpain = Rswift.StringResource(key: "welcome.view.controller.expain", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "es"], comment: nil)
       /// en translation: Start!
       ///
       /// Locales: en, es
@@ -519,6 +540,51 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("splash.view.controller.title", bundle: bundle, comment: "")
+      }
+
+      /// en translation: List of games
+      ///
+      /// Locales: en, es
+      static func homeViewControllerTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("home.view.controller.title", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "home.view.controller.title"
+        }
+
+        return NSLocalizedString("home.view.controller.title", bundle: bundle, comment: "")
+      }
+
+      /// en translation: No results
+      ///
+      /// Locales: en
+      static func generalNoResults(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("general.no.results", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "general.no.results"
+        }
+
+        return NSLocalizedString("general.no.results", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!. Now, you will be able to obtain information about many and many and many interesting video games. Enjoy it!!!
+      ///
+      /// Locales: en, es
+      static func welcomeViewControllerExpain(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("welcome.view.controller.expain", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "welcome.view.controller.expain"
+        }
+
+        return NSLocalizedString("welcome.view.controller.expain", bundle: bundle, comment: "")
       }
 
       /// en translation: Start!

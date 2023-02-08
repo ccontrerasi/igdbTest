@@ -15,7 +15,7 @@ struct HomeViewController: View {
     
     // MARK: - Init
     init(viewModel: HomeViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)        
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
     // MARK: - Body
@@ -37,20 +37,72 @@ struct HomeViewController: View {
         }
     }
     
-    private func generalView(home: Home) -> some View {
+    internal func generalView(home: Home) -> some View {
         VStack {
             switch home.status {
             case .splash:
                 splashView()
             case .home:
-                homeView()
+                menuList(home.games)
             }
         }
     }
     
-    internal func homeView() -> some View {
-        Text("HOME")
+    internal func menuList(_ menus: [Game]) -> some View {
+        VStack {
+            ToolbarView(title: R.string.localizable.homeViewControllerTitle())
+            VerticalList(content: {
+                if menus.isEmpty {
+                    VStack(alignment: .center) {
+                        Image(imageResource: R.image.ic_search).tint(R.color.dum.blueDark)
+                        Text(R.string.localizable.generalNoResults())
+                    }.frame(height: .infinity)
+                } else {
+                    ForEach(menus, id: \.id) { menu in
+                        GameCard(item: menu).onTapGesture {
+                            //self.viewModel.goToInfo(index: menu.id)
+                        }.frame(height: 150)
+                    }
+                }
+            })
+        }
     }
+    
+    struct GameCard: View {
+        let item: Game
+        var body: some View {
+            ZStack(alignment: .center) {
+                if let url = URL(string: item.image) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case let .success(image):
+                            Color.clear
+                                .overlay (
+                                    image.resizable()
+                                        .scaledToFill()
+                                )
+                                .clipped()
+                        case .failure:
+                            Image(systemName: "photo")
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                }
+                VStack {
+                    Spacer()
+                    HStack {
+                        Text(item.name).style(.titleListHome)
+                    }
+                    .frame(maxWidth: .infinity).modifier(ViewStyleHomeListBackground())
+                }
+            }
+        }
+    }
+    
+    
     
     internal func splashView() -> some View {
         ZStack {
@@ -72,7 +124,6 @@ struct HomeViewController: View {
         }
     }
     
-    
     internal func welcomeView() -> some View {
         VStack {
             HStack {
@@ -89,7 +140,7 @@ struct HomeViewController: View {
                 .padding(.horizontal, medium)
             GeometryReader { geometry in
                 ScrollView {
-                    Text("Where does it come from? Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.")
+                    Text(R.string.localizable.welcomeViewControllerExpain())
                         .lineLimit(nil)
                         .frame(width: geometry.size.width)
                 }
@@ -112,8 +163,20 @@ struct HomeViewController_Previews: PreviewProvider {
 
 struct HomeNavViewController_Previews: PreviewProvider {
     static var previews: some View {
+        let gameMockup = [ Game(id: 0, name: "Game 1", image: "https://cdn.vox-cdn.com/thumbor/6I-IQtvx29OSQp0nZscVi7Ev9rA=/0x0:1920x1080/1200x675/filters:focal(807x387:1113x693)/cdn.vox-cdn.com/uploads/chorus_image/image/68510166/jbareham_201201_ecl1050_goty_2020_top_50_02.0.jpg"),
+                           Game(id: 1, name: "Game 2", image: "https://i.insider.com/58c192e5402a6b1b008b51fe?width=750&format=jpeg&auto=webp"),
+                           Game(id: 2, name: "Game 3", image: "https://i.pcmag.com/imagery/lineups/01d5pjEt4Ql4nGhu3XjCkDn-2..v1583082659.jpg"),
+        ]
         HomeViewController(
             viewModel: HomeViewModel(
-                useCase: HomeUseCase())).homeView()
+                useCase: HomeUseCase())).menuList(gameMockup)
+    }
+}
+
+struct HomeNavViewControllerEmpty_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeViewController(
+            viewModel: HomeViewModel(
+                useCase: HomeUseCase())).menuList([])
     }
 }

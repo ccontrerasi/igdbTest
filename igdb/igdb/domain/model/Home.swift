@@ -11,6 +11,7 @@ import Rswift
 
 struct Home : Codable {
     let status: MainState
+    let games: [Game]
 }
 
 enum MainState: Codable {

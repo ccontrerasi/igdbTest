@@ -76,6 +76,7 @@
 		71DD86552993A2230040AA92 /* Raleway-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71DD86082993A2220040AA92 /* Raleway-Italic.ttf */; };
 		71DD86562993A2230040AA92 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71DD86092993A2220040AA92 /* Raleway-Bold.ttf */; };
 		71DD865D2993A7680040AA92 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD865C2993A7680040AA92 /* R.generated.swift */; };
+		71DD86672993BA5C0040AA92 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD86662993BA5C0040AA92 /* Game.swift */; };
 		947D026496758343C19F7EC9 /* Pods_igdb_igdbUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456F193E5F91A0D87253AA6E /* Pods_igdb_igdbUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +173,7 @@
 		71DD86082993A2220040AA92 /* Raleway-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Italic.ttf"; sourceTree = "<group>"; };
 		71DD86092993A2220040AA92 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		71DD865C2993A7680040AA92 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		71DD86662993BA5C0040AA92 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		A0876305692DDDD7081B3FC0 /* Pods-igdb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-igdb.debug.xcconfig"; path = "Target Support Files/Pods-igdb/Pods-igdb.debug.xcconfig"; sourceTree = "<group>"; };
 		B72C29B1F09CDF26FBEE3A48 /* Pods-igdbTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-igdbTests.debug.xcconfig"; path = "Target Support Files/Pods-igdbTests/Pods-igdbTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD034563C78453410F8AF075 /* Pods-igdb-igdbUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-igdb-igdbUITests.debug.xcconfig"; path = "Target Support Files/Pods-igdb-igdbUITests/Pods-igdb-igdbUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -482,6 +484,7 @@
 			isa = PBXGroup;
 			children = (
 				71DD85DD2993A2210040AA92 /* Home.swift */,
+				71DD86662993BA5C0040AA92 /* Game.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				71DD86252993A2220040AA92 /* ErrorPopupModel.swift in Sources */,
 				71DD862F2993A2220040AA92 /* JSONDecoder+Extension.swift in Sources */,
 				71DD860D2993A2220040AA92 /* HomeCoordinator.swift in Sources */,
+				71DD86672993BA5C0040AA92 /* Game.swift in Sources */,
 				71DD862B2993A2220040AA92 /* Publisher+Extensions.swift in Sources */,
 				71DD856E29939BF10040AA92 /* igdb.xcdatamodeld in Sources */,
 				71DD862E2993A2220040AA92 /* Image+Extension.swift in Sources */,
