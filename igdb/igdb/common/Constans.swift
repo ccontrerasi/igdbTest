@@ -9,14 +9,14 @@ import Foundation
 
 // Develop enviroment
 #if DEVELOPMENT
-let base_url = "https://gateway.marvel.com/"
-let api_app = "v1/public/"
+let base_url = "https://api.igdb.com/"
+let api_app = "v4/"
 #else
-let base_url = "https://gateway.marvel.com/"
-let api_app = "v1/public/"
+let base_url = "https://api.igdb.com/"
+let api_app = "v4/"
 #endif
 let client_id = "ikefu3gjaojsnnt21ik7orxyofnztq"
-let bearer_token = "b9b8twp1it10ilyuf6r7n8ajw4tlzz"
+let bearer_token = "Bearer sy49sqc7hcdvzxej0qzzl325btk7ct"
 let CFBundleShortVersionString = "CFBundleShortVersionString"
 var appVersion: String {
     get {

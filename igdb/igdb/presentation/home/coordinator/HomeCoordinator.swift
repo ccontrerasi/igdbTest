@@ -9,6 +9,7 @@
 //
 import Foundation
 import SwiftUI
+import Combine
 
 enum HomeTab {
     case start
@@ -41,15 +42,28 @@ struct HomeCoordinator<State: IHomeFlowStateProtocol, Content: View>: View {
     }
     
     @ViewBuilder private var navigationLinks: some View {
-        NavigationLink(tag: .goToPage(), selection: activeLink, destination: goToPage) { EmptyView() }
+        NavigationLink(tag: .goToDetail(), selection: activeLink, destination: goToDetail) { EmptyView() }        
     }
     
-    private func goToPage() -> some View {
+    private func goToDetail() -> some View {
         var id: Int?
-        if case let .goToPage(param) = state.activeLink {
+        if case let .goToDetail(param) = state.activeLink {
             id = param
         }
         // TODO: CREATE THE NEW COORDINATOR
-        return EmptyView()
+        return NavigationView {
+            Text("Vamos al detalle: \(id ?? -1)")
+        }.navigationViewStyle(.stack)
+    }
+}
+
+struct DeferView<Content: View>: View {
+    let content: () -> Content
+
+    init(@ViewBuilder _ content: @escaping () -> Content) {
+        self.content = content
+    }
+    var body: some View {
+        content()          // << everything is created here
     }
 }

@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
         AppDelegate.instance = self
         container = Container() { [weak self] container in
             guard let self = self else { return }
+            self.loadService(container)
+            self.loadRepositories(container)
             self.loadUseCases(container)
             self.loadViewModels(container)
             self.loadViewControllers(container)
@@ -41,10 +43,23 @@ extension AppDelegate {
     func getCoordiantor<T:View>(_ type: T.Type) -> some View {
         return container.resolve(type)
     }
+    
+    private func loadService(_ container: Container){
+        container.register(MoyaProvider<ApiServices>.self) { r in
+            return MoyaProvider<ApiServices>(
+                plugins: [VerbosePlugin(verbose: true)])
+        }
+    }
+    
+    private func loadRepositories(_ container: Container) {
+        container.register(GameRepository.self) { r in
+            return GameRepository(provider: r.resolve(MoyaProvider<ApiServices>.self)!)
+        }
+    }
 
     private func loadUseCases(_ container: Container) {
         container.register(HomeUseCase.self) { r in
-            return HomeUseCase()
+            return HomeUseCase(gameRepository: r.resolve(GameRepository.self)!)
         }
     }
     private func loadViewModels(_ container: Container) {

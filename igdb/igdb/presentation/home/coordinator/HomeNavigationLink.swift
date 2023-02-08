@@ -14,20 +14,19 @@ protocol IHomeNavigationLink: Identifiable {
 }
 
 enum HomeNavigationLink: Hashable, IHomeNavigationLink {
-    // EXAMPLE
-    case goToPage(id: Int? = nil)
+    case goToDetail(id: Int? = nil)
     
     var id: String {
         switch self {
-        case let .goToPage(id):
-            return "goToInfo: \(id ?? 0)"
+        case let .goToDetail(id):
+            return "goToDetail: \(id ?? 0)"
         }
     }
     
     var navigationLink: HomeNavigationLink {
         switch self {
         default:
-            return .goToPage()
+            return .goToDetail()
         }
     }
     

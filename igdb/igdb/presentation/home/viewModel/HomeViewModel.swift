@@ -12,6 +12,9 @@ import Combine
 import SwiftUI
 
 protocol HomeViewModelProtocol: ObservableObject {
+    func welcomeShowed()
+    func launchLoading()
+    func goToDetail(id: Int)
 }
 
 final class HomeViewModel: ObservableObject, HomeViewModelProtocol, IHomeFlowStateProtocol {
@@ -21,9 +24,9 @@ final class HomeViewModel: ObservableObject, HomeViewModelProtocol, IHomeFlowSta
     @Published var activeLink: HomeNavigationLink?
     @Published var showWelcome: Bool = false
     @Published var currentTab: HomeTab = .start
-    private let useCase: HomeUseCase
+    private let useCase: IHomeUseCase
         
-    init(useCase: HomeUseCase) {
+    init(useCase: IHomeUseCase) {
         self.useCase = useCase
     }
     
@@ -39,11 +42,15 @@ final class HomeViewModel: ObservableObject, HomeViewModelProtocol, IHomeFlowSta
             guard let `self` = self else { return }
             if !Preferences.showWelcome() {
                 self.state = .loading
-                self.useCase.execute()
+                self.useCase.execute(name: nil)
                     .assign(to: &self.$state)
             } else {
                 self.showWelcome = Preferences.showWelcome()
             }
         }
+    }
+    
+    func goToDetail(id: Int) {
+        activeLink = .goToDetail(id: id)
     }
 }

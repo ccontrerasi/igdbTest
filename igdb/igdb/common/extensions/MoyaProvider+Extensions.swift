@@ -18,9 +18,9 @@ extension MoyaProvider {
             }
 #endif
             let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .formatted(.dateFromServerFull)
+            decoder.dateDecodingStrategy = .millisecondsSince1970
             if (result.statusCode == 200){
-                let json = try decoder.decode(T.self, from: result.data)
+                let json = try! decoder.decode(T.self, from: result.data)
                 return json
             }
             return nil

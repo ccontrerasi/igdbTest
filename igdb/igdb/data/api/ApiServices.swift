@@ -48,7 +48,8 @@ extension ApiServices : TargetType {
     var task: Task {
         switch self {
         case .fetchGames:
-            return .requestPlain
+            return .requestParameters(parameters: ["fields":"*"],
+                                      encoding: URLEncoding.queryString)
         }
     }
     
