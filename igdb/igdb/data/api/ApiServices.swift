@@ -11,6 +11,7 @@ import Alamofire
 
 enum ApiServices {
     case fetchGames
+    case fetchImagesGame(idGame: Int)
 }
 
 extension ApiServices : TargetType {
@@ -26,12 +27,15 @@ extension ApiServices : TargetType {
         switch self {
         case .fetchGames:
             return "games"
+        case .fetchImagesGame(_):
+            return "covers"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .fetchGames:
+        case .fetchGames,
+                .fetchImagesGame(_):
             return .post
         }
     }
@@ -41,6 +45,8 @@ extension ApiServices : TargetType {
         switch self {
         case .fetchGames:
             result = "Called to fetchGames."
+        case .fetchImagesGame(_):
+            result = "Called to fetchImagesGame"
         }
         return result.utf8Encoded
     }
@@ -50,6 +56,11 @@ extension ApiServices : TargetType {
         case .fetchGames:
             return .requestParameters(parameters: ["fields":"*"],
                                       encoding: URLEncoding.queryString)
+        case .fetchImagesGame(let idGame):
+            return .requestCompositeParameters(bodyParameters: ["fields":"id,url",
+                                                                "were":"game=\(idGame)"],
+                                               bodyEncoding: URLEncoding.httpBody,
+                                               urlParameters: [:])
         }
     }
     

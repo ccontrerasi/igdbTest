@@ -77,6 +77,12 @@
 		71DD86672993BA5C0040AA92 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD86662993BA5C0040AA92 /* Game.swift */; };
 		71DD86692993F2190040AA92 /* GameDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD86682993F2190040AA92 /* GameDTO.swift */; };
 		71DD866B2993F28D0040AA92 /* GameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD866A2993F28D0040AA92 /* GameRepository.swift */; };
+		71DD867329940A700040AA92 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD867229940A700040AA92 /* AsyncImage.swift */; };
+		71DD867529940AB10040AA92 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD867429940AB10040AA92 /* ImageLoader.swift */; };
+		71DD867729940AD50040AA92 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD867629940AD50040AA92 /* ImageCache.swift */; };
+		71DD867929940B890040AA92 /* EnvironmentValues+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD867829940B890040AA92 /* EnvironmentValues+Extensions.swift */; };
+		71DD867B29940F370040AA92 /* ImageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD867A29940F370040AA92 /* ImageDTO.swift */; };
+		71DD867D299412970040AA92 /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD867C299412970040AA92 /* Cover.swift */; };
 		947D026496758343C19F7EC9 /* Pods_igdb_igdbUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456F193E5F91A0D87253AA6E /* Pods_igdb_igdbUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -174,6 +180,12 @@
 		71DD86662993BA5C0040AA92 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		71DD86682993F2190040AA92 /* GameDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDTO.swift; sourceTree = "<group>"; };
 		71DD866A2993F28D0040AA92 /* GameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRepository.swift; sourceTree = "<group>"; };
+		71DD867229940A700040AA92 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		71DD867429940AB10040AA92 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		71DD867629940AD50040AA92 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		71DD867829940B890040AA92 /* EnvironmentValues+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Extensions.swift"; sourceTree = "<group>"; };
+		71DD867A29940F370040AA92 /* ImageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDTO.swift; sourceTree = "<group>"; };
+		71DD867C299412970040AA92 /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		A0876305692DDDD7081B3FC0 /* Pods-igdb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-igdb.debug.xcconfig"; path = "Target Support Files/Pods-igdb/Pods-igdb.debug.xcconfig"; sourceTree = "<group>"; };
 		B72C29B1F09CDF26FBEE3A48 /* Pods-igdbTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-igdbTests.debug.xcconfig"; path = "Target Support Files/Pods-igdbTests/Pods-igdbTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD034563C78453410F8AF075 /* Pods-igdb-igdbUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-igdb-igdbUITests.debug.xcconfig"; path = "Target Support Files/Pods-igdb-igdbUITests/Pods-igdb-igdbUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -363,6 +375,7 @@
 			children = (
 				71DD85B82993A2200040AA92 /* common */,
 				71DD86682993F2190040AA92 /* GameDTO.swift */,
+				71DD867A29940F370040AA92 /* ImageDTO.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -398,6 +411,7 @@
 		71DD85BD2993A2210040AA92 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				71DD867029940A5B0040AA92 /* image */,
 				71DD85BE2993A2210040AA92 /* popup */,
 			);
 			path = ui;
@@ -451,6 +465,7 @@
 				71DD85D12993A2210040AA92 /* MoyaProvider+Extensions.swift */,
 				71DD85D22993A2210040AA92 /* NotificationCenter+Extensions.swift */,
 				71DD85D32993A2210040AA92 /* Image+Extension.swift */,
+				71DD867829940B890040AA92 /* EnvironmentValues+Extensions.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -485,6 +500,7 @@
 			children = (
 				71DD85DD2993A2210040AA92 /* Home.swift */,
 				71DD86662993BA5C0040AA92 /* Game.swift */,
+				71DD867C299412970040AA92 /* Cover.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -573,6 +589,24 @@
 				71DD86092993A2220040AA92 /* Raleway-Bold.ttf */,
 			);
 			path = raleway;
+			sourceTree = "<group>";
+		};
+		71DD867029940A5B0040AA92 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				71DD867129940A600040AA92 /* async */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
+		71DD867129940A600040AA92 /* async */ = {
+			isa = PBXGroup;
+			children = (
+				71DD867229940A700040AA92 /* AsyncImage.swift */,
+				71DD867429940AB10040AA92 /* ImageLoader.swift */,
+				71DD867629940AD50040AA92 /* ImageCache.swift */,
+			);
+			path = async;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -858,10 +892,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				71DD863F2993A2220040AA92 /* Colors.swift in Sources */,
+				71DD867929940B890040AA92 /* EnvironmentValues+Extensions.swift in Sources */,
 				71DD861F2993A2220040AA92 /* ScrollProxy.swift in Sources */,
 				71DD862A2993A2220040AA92 /* String+Extensions.swift in Sources */,
 				71DD86302993A2220040AA92 /* LoadableState.swift in Sources */,
+				71DD867B29940F370040AA92 /* ImageDTO.swift in Sources */,
 				71DD860C2993A2220040AA92 /* HomeNavigationLink.swift in Sources */,
+				71DD867329940A700040AA92 /* AsyncImage.swift in Sources */,
 				71DD86342993A2220040AA92 /* Home.swift in Sources */,
 				71DD863C2993A2220040AA92 /* Dimensions.swift in Sources */,
 				71DD86272993A2220040AA92 /* Constans.swift in Sources */,
@@ -870,6 +907,7 @@
 				71DD861E2993A2220040AA92 /* EnviromentContainer.swift in Sources */,
 				71DD86692993F2190040AA92 /* GameDTO.swift in Sources */,
 				71DD86262993A2220040AA92 /* Scheduler.swift in Sources */,
+				71DD867529940AB10040AA92 /* ImageLoader.swift in Sources */,
 				71DD863D2993A2220040AA92 /* ViewStylesDeclarative.swift in Sources */,
 				71DD86212993A2220040AA92 /* HostingChildView.swift in Sources */,
 				71DD860E2993A2220040AA92 /* HomeViewController.swift in Sources */,
@@ -878,6 +916,7 @@
 				71DD86432993A2220040AA92 /* AppDelegate.swift in Sources */,
 				71DD861C2993A2220040AA92 /* RequestError.swift in Sources */,
 				71DD86442993A2220040AA92 /* SceneDelegate.swift in Sources */,
+				71DD867D299412970040AA92 /* Cover.swift in Sources */,
 				71DD86372993A2220040AA92 /* HomeUseCase.swift in Sources */,
 				71DD863A2993A2220040AA92 /* Preferences.swift in Sources */,
 				71DD860B2993A2220040AA92 /* HomeViewModel.swift in Sources */,
@@ -897,6 +936,7 @@
 				71DD86222993A2220040AA92 /* EnvironmentVariables.swift in Sources */,
 				71DD862C2993A2220040AA92 /* MoyaProvider+Extensions.swift in Sources */,
 				71DD86292993A2220040AA92 /* Binding+Extension.swift in Sources */,
+				71DD867729940AD50040AA92 /* ImageCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

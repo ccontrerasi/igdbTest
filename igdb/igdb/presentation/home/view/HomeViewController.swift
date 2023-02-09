@@ -35,6 +35,8 @@ struct HomeViewController: View {
             case .result(let value):
                 generalView(home: value, showWelcome: $viewModel.showWelcome.wrappedValue)
             }
+        }.onAppear {
+            
         }
     }
     
@@ -74,23 +76,11 @@ struct HomeViewController: View {
         var body: some View {
             ZStack(alignment: .center) {
                 if let itemUrl = item.url, let url = URL(string: itemUrl) {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                        case let .success(image):
-                            Color.clear
-                                .overlay (
-                                    image.resizable()
-                                        .scaledToFill()
-                                )
-                                .clipped()
-                        case .failure:
-                            Image(systemName: "photo")
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
+                    AsyncImage(
+                       url: url,
+                       placeholder: { ProgressView() },
+                       image: { Image(uiImage: $0).resizable() }
+                    )
                 }
                 VStack {
                     Spacer()

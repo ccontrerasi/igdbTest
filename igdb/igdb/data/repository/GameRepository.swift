@@ -11,6 +11,7 @@ import Moya
 
 protocol IGameRepository {
     func fetchGames() -> AnyPublisher<[GameDTO], Error>
+    func fetchImages(id: Int) -> AnyPublisher<[ImageDTO], Error>
 }
 
 class GameRepository: IGameRepository {
@@ -22,5 +23,9 @@ class GameRepository: IGameRepository {
     
     func fetchGames() -> AnyPublisher<[GameDTO], Error> {
         provider.requestPublisher(.fetchGames, typeResult: [GameDTO].self)
+    }
+    
+    func fetchImages(id: Int) -> AnyPublisher<[ImageDTO], Error> {
+        provider.requestPublisher(.fetchImagesGame(idGame: id), typeResult: [ImageDTO].self)
     }
 }
