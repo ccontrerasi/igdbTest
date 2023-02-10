@@ -14,16 +14,11 @@ protocol IHomeUseCase {
     func getCover(id: Int) -> AnyPublisher<LoadableState<[Cover]>, Never>
 }
 
-struct Juego {
-    let id: Int
-    let cover: [ImageDTO]
-}
-
 class HomeUseCase: IHomeUseCase {
     
-    let gameRepository: GameRepository
+    let gameRepository: IGameRepository
     
-    init(gameRepository: GameRepository) {
+    init(gameRepository: IGameRepository) {
         self.gameRepository = gameRepository
     }
     
