@@ -10,7 +10,8 @@ import Moya
 import Alamofire
 
 enum ApiServices {
-    case fetchGames
+    case fetchGames(offset: Int)
+    case fetchGame(id: Int)
     case fetchImageGame(id: Int)
 }
 
@@ -25,7 +26,7 @@ extension ApiServices : TargetType {
     
     var path: String {
         switch self {
-        case .fetchGames:
+        case .fetchGames(_), .fetchGame(_):
             return "games"
         case .fetchImageGame(_):
             return "covers"
@@ -34,7 +35,7 @@ extension ApiServices : TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .fetchGames,
+        case .fetchGames(_), .fetchGame(_),
                 .fetchImageGame(_):
             return .post
         }
@@ -43,8 +44,10 @@ extension ApiServices : TargetType {
     var sampleData: Data {
         var result = ""
         switch self {
-        case .fetchGames:
+        case .fetchGames(_):
             result = "Called to fetchGames."
+        case .fetchGame(_):
+            result = "Called to fetchGame."
         case .fetchImageGame(_):
             result = "Called to fetchImageGame"
         }
@@ -53,13 +56,19 @@ extension ApiServices : TargetType {
     
     var task: Task {
         switch self {
-        case .fetchGames:
-            return .requestParameters(parameters: ["fields":"*"],
-                                      encoding: URLEncoding.queryString)
+        case .fetchGames(let offset):
+            var query = "fields *;"
+            if offset > 0 {
+                query += " limit \(offset);"
+            }
+            let data = query.data(using: .utf8, allowLossyConversion: false)!
+            return .requestCompositeData(bodyData: data, urlParameters: [:])
         case .fetchImageGame(let id):
-            return .requestParameters(parameters: ["fields":"id,url",
-                                                    "where":"id=\(id)"],
-                                               encoding: URLEncoding.queryString)
+            let data = "fields id,url; where id=\(id);".data(using: .utf8, allowLossyConversion: false)!
+            return .requestCompositeData(bodyData: data, urlParameters: [:])
+        case let .fetchGame(id):
+            let data = "fields *; where id=\(id);".data(using: .utf8, allowLossyConversion: false)!
+            return .requestCompositeData(bodyData: data, urlParameters: [:])
         }
     }
     

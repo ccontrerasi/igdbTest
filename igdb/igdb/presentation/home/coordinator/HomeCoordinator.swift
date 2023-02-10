@@ -49,8 +49,10 @@ struct HomeCoordinator<State: IHomeFlowStateProtocol, Content: View>: View {
         if case let .goToDetail(param) = state.activeLink {
             id = param
         }
-        // TODO: CREATE THE NEW COORDINATOR
-        return AnyView(Text("Vamos al detalle: \(id ?? -1)"))
-        
+        let rp = GameRepository(provider: AppDelegate.instance.getMoyaProvider())
+        let uc = GameDetailUseCase(gameRepository: rp)
+        let vm = GameDetailViewModel(useCase: uc, state: .idle, idGame: id)
+        return GameDetailCoordinator(state: vm,
+                                                content: { GameDetailViewController(viewModel: vm) })
     }
 }

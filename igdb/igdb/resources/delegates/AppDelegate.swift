@@ -44,6 +44,10 @@ extension AppDelegate {
         return container.resolve(type)
     }
     
+    func getMoyaProvider() -> MoyaProvider<ApiServices> {
+        return container.resolve(MoyaProvider<ApiServices>.self)!
+    }
+    
     private func loadService(_ container: Container){
         container.register(MoyaProvider<ApiServices>.self) { r in
             return MoyaProvider<ApiServices>(
@@ -61,11 +65,18 @@ extension AppDelegate {
         container.register(HomeUseCase.self) { r in
             return HomeUseCase(gameRepository: r.resolve(GameRepository.self)!)
         }
+        container.register(GameDetailUseCase.self) { r in
+            return GameDetailUseCase(gameRepository: r.resolve(GameRepository.self)!)
+        }
     }
     private func loadViewModels(_ container: Container) {
         container.register(HomeViewModel.self) { r in
             let uc = r.resolve(HomeUseCase.self)!
             return HomeViewModel(useCase: uc)
+        }
+        container.register(GameDetailViewModel.self) { r in
+            let uc = r.resolve(GameDetailUseCase.self)!
+            return GameDetailViewModel(useCase: uc)
         }
     }
     
@@ -74,6 +85,10 @@ extension AppDelegate {
             let vm = r.resolve(HomeViewModel.self)!
             return HomeViewController(viewModel: vm)
         }
+        container.register(GameDetailViewController.self) { r in
+            let vm = r.resolve(GameDetailViewModel.self)!
+            return GameDetailViewController(viewModel: vm)
+        }
     }
     
     private func loadCoordinators(_ container: Container) {
@@ -81,6 +96,11 @@ extension AppDelegate {
             let vm = r.resolve(HomeViewModel.self)!
             let vc = r.resolve(HomeViewController.self)!
             return HomeCoordinator(state: vm, content: { vc })
-        }        
+        }
+        container.register(GameDetailCoordinator<GameDetailViewModel, GameDetailViewController>.self) { r in
+            let vm = r.resolve(GameDetailViewModel.self)!
+            let vc = r.resolve(GameDetailViewController.self)!
+            return GameDetailCoordinator(state: vm, content: { vc })
+        }
     }
 }

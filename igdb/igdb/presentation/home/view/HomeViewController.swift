@@ -26,25 +26,22 @@ struct HomeViewController: View {
     
     @ViewBuilder private func content() -> some View {
         ZStack {
-            switch viewModel.state {
-            case .idle, .loading:
-                splashView(showWlecome: $viewModel.showWelcome.wrappedValue).onAppear {
-                    viewModel.launchLoading()
+            LoadingView(isLoading: $viewModel.isLoading, content: {
+                switch viewModel.statePaginated {
+                case .idle, .loading: splashView().onAppear { viewModel.launchLoading()}
+                case .failed(_): Text("Failed....")
+                case .result(let value):
+                    generalView(home: value)
                 }
-            case .failed(_): Text("Failed....")
-            case .result(let value):
-                generalView(home: value, showWelcome: $viewModel.showWelcome.wrappedValue)
-            }
-        }.onAppear {
-            
+            })
         }
     }
     
-    func generalView(home: Home, showWelcome: Bool) -> some View {
+    func generalView(home: Home) -> some View {
         VStack {
             switch home.status {
             case .splash:
-                splashView(showWlecome: showWelcome)
+                splashView()
             case .home:
                 menuList(home.games)
             }
@@ -64,11 +61,18 @@ struct HomeViewController: View {
                     ForEach(menus, id: \.id) { menu in
                         GameCard(item: menu).onTapGesture {
                             viewModel.goToDetail(id: menu.id)
-                        }.frame(height: 150)
+                        }.onAppear {
+                            if menus.last?.id == menu.id {
+                                // We are on the last item, we call to the server again
+                                viewModel.loadNextGames()
+                            }
+                        }
                         Divider().frame(height: 2)
                     }
                 }
-            })
+            }).refreshable {
+                viewModel.launchLoading()
+            }
         }
     }
     
@@ -101,9 +105,9 @@ struct HomeViewController: View {
         }
     }
     
-    private func splashView(showWlecome: Bool) -> some View {
+    internal func splashView() -> some View {
         ZStack {
-            if (showWlecome) {
+            if ($viewModel.showWelcome.wrappedValue) {
                 welcomeView()
             } else {
                 Image(imageResource: R.image.backgroundSplash)
@@ -117,7 +121,6 @@ struct HomeViewController: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     Spacer()
                 }
-                Spacer()
             }
         }
     }
