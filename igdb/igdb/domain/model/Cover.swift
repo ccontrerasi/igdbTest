@@ -13,6 +13,6 @@ struct Cover: Codable {
     
     init(dto: ImageDTO){
         id = dto.id
-        url = dto.url
+        url = "https:\(dto.url)"
     }
 }

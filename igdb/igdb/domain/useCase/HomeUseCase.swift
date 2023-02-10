@@ -14,6 +14,11 @@ protocol IHomeUseCase {
     func getCover(id: Int) -> AnyPublisher<LoadableState<[Cover]>, Never>
 }
 
+struct Juego {
+    let id: Int
+    let cover: [ImageDTO]
+}
+
 class HomeUseCase: IHomeUseCase {
     
     let gameRepository: GameRepository
@@ -23,43 +28,32 @@ class HomeUseCase: IHomeUseCase {
     }
     
     func execute(name: String? = nil) -> AnyPublisher<LoadableState<Home>, Never> {
-        
-        return gameRepository.fetchGames().compactMap { games in
-            games.compactMap { [weak self] game in
-                 self!.gameRepository.fetchImages(id:game.id).compactMap { images in
-                    return Game(dto: game, covers: images.compactMap({ imageDTO in
-                        Cover(dto: imageDTO)
-                    }))
-                }
-            }
-        }.convertToLoadedState()
-        
-        
-        
-        return gameRepository.fetchGames().compactMap {
-            let games = $0.compactMap { dto in
-                
-                self.gameRepository.fetchImages(id:dto.id).compactMap { covers in
-                    covers.compactMap {
-                        Cover(dto: $0)
-                    }
-                }.catch({ error in
-                    let result : [Cover] = []
-                    return AnyPublisher(Just(result))
-                })
-                .compactMap { covers in
-                    return [Game(dto: dto, covers: covers)]
-                }
-            }
-            return Home(status: .home, games: games)
-        }.convertToLoadedState()
-            .eraseToAnyPublisher()
+        return gameRepository.fetchGames()
+           .flatMap { games in
+               games.publisher.setFailureType(to: Error.self)
+           }
+           .flatMap { [weak self] game -> AnyPublisher<Game, Error> in
+               
+               guard let `self` = self, let idCover = game.cover else {
+                   return AnyPublisher<Game, Error>(Just(Game(dto: game))
+                    .setFailureType(to: Error.self))
+               }
+               return self.gameRepository.fetchImage(id: idCover)
+                  .mapError { $0 as Error }
+                  .map { Game(dto:game, covers: $0.map({ imgDto in
+                      Cover(dto: imgDto)
+                  })) }
+                  .eraseToAnyPublisher()
+           }
+           .collect().convertToLoadedState().map ({
+               Home(status: .home, games: $0.getResult() ?? [])
+           }).eraseToAnyPublisher().convertToLoadedState()
     }
     
     func getCover(id: Int) -> AnyPublisher<LoadableState<[Cover]>, Never> {
-        return gameRepository.fetchImages(id: id).compactMap {
-            $0.compactMap { dto in
-                Cover(dto: dto)
+        return gameRepository.fetchImage(id: id).compactMap {
+            $0.compactMap { imgDto in
+                Cover(dto: imgDto)
             }
         }.convertToLoadedState()
             .eraseToAnyPublisher()
@@ -68,7 +62,7 @@ class HomeUseCase: IHomeUseCase {
 
 class HomeUseCaseMock: IHomeUseCase {
     func getCover(id: Int) -> AnyPublisher<LoadableState<[Cover]>, Never> {
-        return Result<[Cover],Never>.Publisher.init([])
+        return Result<[Cover],Never>.Publisher.init([Cover(dto: ImageDTO(id: 1, url: "https://i.pcmag.com/imagery/lineups/01d5pjEt4Ql4nGhu3XjCkDn-2..v1583082659.jpg"))])
             .convertToLoadedState()
             .eraseToAnyPublisher()
     }

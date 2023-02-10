@@ -20,14 +20,15 @@ protocol HomeViewModelProtocol: ObservableObject {
 final class HomeViewModel: ObservableObject, HomeViewModelProtocol, IHomeFlowStateProtocol {
 
     // MARK: - Properties
-    @Published private(set) var state: LoadableState<Home> = .idle
+    @Published private(set) var state: LoadableState<Home>
     @Published var activeLink: HomeNavigationLink?
     @Published var showWelcome: Bool = false
     @Published var currentTab: HomeTab = .start
     private let useCase: IHomeUseCase
         
-    init(useCase: IHomeUseCase) {
+    init(useCase: IHomeUseCase, state: LoadableState<Home> = .idle) {
         self.useCase = useCase
+        self.state = state
     }
     
     // MARK: - Public

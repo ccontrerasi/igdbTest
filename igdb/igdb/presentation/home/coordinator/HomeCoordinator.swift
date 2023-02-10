@@ -38,7 +38,6 @@ struct HomeCoordinator<State: IHomeFlowStateProtocol, Content: View>: View {
                 navigationLinks
             }
         }
-        .navigationViewStyle(.stack)
     }
     
     @ViewBuilder private var navigationLinks: some View {
@@ -51,19 +50,7 @@ struct HomeCoordinator<State: IHomeFlowStateProtocol, Content: View>: View {
             id = param
         }
         // TODO: CREATE THE NEW COORDINATOR
-        return NavigationView {
-            Text("Vamos al detalle: \(id ?? -1)")
-        }.navigationViewStyle(.stack)
-    }
-}
-
-struct DeferView<Content: View>: View {
-    let content: () -> Content
-
-    init(@ViewBuilder _ content: @escaping () -> Content) {
-        self.content = content
-    }
-    var body: some View {
-        content()          // << everything is created here
+        return AnyView(Text("Vamos al detalle: \(id ?? -1)"))
+        
     }
 }

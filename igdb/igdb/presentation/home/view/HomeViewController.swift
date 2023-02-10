@@ -65,6 +65,7 @@ struct HomeViewController: View {
                         GameCard(item: menu).onTapGesture {
                             viewModel.goToDetail(id: menu.id)
                         }.frame(height: 150)
+                        Divider().frame(height: 2)
                     }
                 }
             })
@@ -74,21 +75,27 @@ struct HomeViewController: View {
     private struct GameCard: View {
         let item: Game
         var body: some View {
-            ZStack(alignment: .center) {
-                if let itemUrl = item.url, let url = URL(string: itemUrl) {
-                    AsyncImage(
-                       url: url,
-                       placeholder: { ProgressView() },
-                       image: { Image(uiImage: $0).resizable() }
-                    )
-                }
-                VStack {
-                    Spacer()
-                    HStack {
-                        Text(item.name).style(.titleListHome)
-                        Text("\(item.createdAt ?? Date())")
+            VStack(alignment: .leading) {
+                HStack(alignment: .top) {
+                    if let itemUrl = item.covers?.first?.url, let url = URL(string: itemUrl) {
+                        AsyncImage(
+                            url: url,
+                            placeholder: { ProgressView() },
+                            image: { Image(uiImage: $0).resizable() }
+                        ).frame(width: 50, height: 50).scaledToFit().padding()
+                    } else {
+                        Image(imageResource: R.image.photo)
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .scaledToFit().padding()
                     }
-                    .frame(maxWidth: .infinity).modifier(ViewStyleHomeListBackground())
+                    VStack(alignment:.leading) {
+                        Text(item.name).style(.titleListHome).frame(maxWidth: .infinity, alignment: .leading)
+                        Text("\(item.createdAt?.getOnlyDate() ?? "")").style(.itemList).frame(maxWidth: .infinity, alignment: .leading)
+                        if let url = item.url {
+                            Text(url).frame(maxWidth: .infinity, alignment: .leading).style(.itemList)
+                        }
+                    }.padding()
                 }
             }
         }
@@ -110,6 +117,7 @@ struct HomeViewController: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     Spacer()
                 }
+                Spacer()
             }
         }
     }
@@ -145,6 +153,9 @@ struct HomeViewController: View {
 
 struct HomeViewController_Previews: PreviewProvider {
     static var previews: some View {
-        HomeViewController(viewModel: HomeViewModel(useCase: HomeUseCaseMock()))
+        let mock = Home(status: .home, games: [
+            Game(id: 1, name: "Game 2", createdAt: nil, url: "https://i.insider.com/58c192e5402a6b1b008b51fe?width=750&format=jpeg&auto=webp", covers: nil)
+        ])
+        HomeViewController(viewModel: HomeViewModel(useCase: HomeUseCaseMock(), state: .result(mock)))
     }
 }

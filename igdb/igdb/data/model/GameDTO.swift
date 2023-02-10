@@ -39,6 +39,7 @@ struct GameDTO: Codable {
     let themes: [Int]?
     let artworks: [Int]?
     let languageSupports: [Int]?
+    var covers: [ImageDTO]?
     
     enum CodingKeys: String, CodingKey {
         case id, category
@@ -61,5 +62,6 @@ struct GameDTO: Codable {
         case playerPerspectives = "player_perspectives"
         case status, themes, artworks
         case languageSupports = "language_supports"
+        case covers
     }
 }

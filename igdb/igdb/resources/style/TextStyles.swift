@@ -10,7 +10,8 @@ import SwiftUI
 
 public extension Font {
     static let title: Font = .custom(R.font.ralewaySemiBold.fontName, size: 24)
-    static let itemMenu: Font = .custom(R.font.ralewayRegular.fontName, size: 18)
+    static let titleListHome: Font = .custom(R.font.ralewaySemiBold.fontName, size: 16)
+    static let itemMenu: Font = .custom(R.font.ralewayRegular.fontName, size: 12)
 }
 
 public enum TextStyle {
@@ -19,7 +20,7 @@ public enum TextStyle {
     public var style: (font: Font, color: Color) {
         switch self {
         case .titleNav: return (.title, Color.white)
-        case .titleListHome: return (.title, Color.black)
+        case .titleListHome: return (.titleListHome, Color.black)
         case .itemList: return (.itemMenu, Color.black)
         }
     }

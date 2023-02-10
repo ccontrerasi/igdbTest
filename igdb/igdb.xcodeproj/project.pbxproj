@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		083C75EE4AEEA3A5A0D76121 /* Pods_igdbTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBDE92BD04D678494A36A9E /* Pods_igdbTests.framework */; };
 		31CE0FA7EB4673C8AB3F6425 /* Pods_igdb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9FD52EF81EF439E51F89E4 /* Pods_igdb.framework */; };
+		719A00972995875B004226E6 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719A00962995875B004226E6 /* Date+Extension.swift */; };
+		719A009929958F8E004226E6 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719A009829958F8E004226E6 /* GameTests.swift */; };
+		719A009A29958FD0004226E6 /* GameDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD86682993F2190040AA92 /* GameDTO.swift */; };
+		719A009B29958FD5004226E6 /* ImageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD867A29940F370040AA92 /* ImageDTO.swift */; };
 		71DD856229939BEF0040AA92 /* igdbApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD856129939BEF0040AA92 /* igdbApp.swift */; };
 		71DD856629939BF10040AA92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71DD856529939BF10040AA92 /* Assets.xcassets */; };
 		71DD856929939BF10040AA92 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71DD856829939BF10040AA92 /* Preview Assets.xcassets */; };
@@ -108,6 +112,8 @@
 		1B9FD52EF81EF439E51F89E4 /* Pods_igdb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_igdb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		383293468B75A67B78535A99 /* Pods-igdb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-igdb.release.xcconfig"; path = "Target Support Files/Pods-igdb/Pods-igdb.release.xcconfig"; sourceTree = "<group>"; };
 		456F193E5F91A0D87253AA6E /* Pods_igdb_igdbUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_igdb_igdbUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		719A00962995875B004226E6 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		719A009829958F8E004226E6 /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 		71DD855E29939BEE0040AA92 /* igdb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = igdb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71DD856129939BEF0040AA92 /* igdbApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = igdbApp.swift; sourceTree = "<group>"; };
 		71DD856529939BF10040AA92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -244,6 +250,30 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		719A009C29959378004226E6 /* UnitTest */ = {
+			isa = PBXGroup;
+			children = (
+				719A009E299593A9004226E6 /* useCase */,
+				719A009D29959386004226E6 /* decode */,
+			);
+			path = UnitTest;
+			sourceTree = "<group>";
+		};
+		719A009D29959386004226E6 /* decode */ = {
+			isa = PBXGroup;
+			children = (
+				719A009829958F8E004226E6 /* GameTests.swift */,
+			);
+			path = decode;
+			sourceTree = "<group>";
+		};
+		719A009E299593A9004226E6 /* useCase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = useCase;
+			sourceTree = "<group>";
+		};
 		71DD855529939BEE0040AA92 = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				71DD857729939BF10040AA92 /* igdbTests.swift */,
+				719A009C29959378004226E6 /* UnitTest */,
 			);
 			path = igdbTests;
 			sourceTree = "<group>";
@@ -466,6 +497,7 @@
 				71DD85D22993A2210040AA92 /* NotificationCenter+Extensions.swift */,
 				71DD85D32993A2210040AA92 /* Image+Extension.swift */,
 				71DD867829940B890040AA92 /* EnvironmentValues+Extensions.swift */,
+				719A00962995875B004226E6 /* Date+Extension.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -936,6 +968,7 @@
 				71DD86222993A2220040AA92 /* EnvironmentVariables.swift in Sources */,
 				71DD862C2993A2220040AA92 /* MoyaProvider+Extensions.swift in Sources */,
 				71DD86292993A2220040AA92 /* Binding+Extension.swift in Sources */,
+				719A00972995875B004226E6 /* Date+Extension.swift in Sources */,
 				71DD867729940AD50040AA92 /* ImageCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -945,6 +978,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				71DD857829939BF10040AA92 /* igdbTests.swift in Sources */,
+				719A009929958F8E004226E6 /* GameTests.swift in Sources */,
+				719A009A29958FD0004226E6 /* GameDTO.swift in Sources */,
+				719A009B29958FD5004226E6 /* ImageDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
