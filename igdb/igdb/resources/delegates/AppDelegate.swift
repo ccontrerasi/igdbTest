@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
             self.loadUseCases(container)
             self.loadViewModels(container)
             self.loadViewControllers(container)
-            self.loadCoordinators(container)
         }
         return true
     }
@@ -40,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
 }
 
 extension AppDelegate {
-    func getCoordiantor<T:View>(_ type: T.Type) -> some View {
+    func getViewController<T:View>(_ type: T.Type) -> some View {
         return container.resolve(type)
     }
     
@@ -88,19 +87,6 @@ extension AppDelegate {
         container.register(GameDetailViewController.self) { r in
             let vm = r.resolve(GameDetailViewModel.self)!
             return GameDetailViewController(viewModel: vm)
-        }
-    }
-    
-    private func loadCoordinators(_ container: Container) {
-        container.register(HomeCoordinator<HomeViewModel, HomeViewController>.self) { r in
-            let vm = r.resolve(HomeViewModel.self)!
-            let vc = r.resolve(HomeViewController.self)!
-            return HomeCoordinator(state: vm, content: { vc })
-        }
-        container.register(GameDetailCoordinator<GameDetailViewModel, GameDetailViewController>.self) { r in
-            let vm = r.resolve(GameDetailViewModel.self)!
-            let vc = r.resolve(GameDetailViewController.self)!
-            return GameDetailCoordinator(state: vm, content: { vc })
         }
     }
 }

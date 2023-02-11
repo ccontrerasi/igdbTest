@@ -13,7 +13,7 @@ struct igdbApp: App {
     var body: some Scene {
         WindowGroup {
             AppDelegate.instance
-                .getCoordiantor(HomeCoordinator<HomeViewModel, HomeViewController>.self)
+                .getViewController(HomeViewController.self)
         }
     }
 }

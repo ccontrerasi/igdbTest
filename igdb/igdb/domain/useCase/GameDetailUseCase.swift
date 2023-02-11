@@ -26,10 +26,23 @@ class GameDetailUseCase: IGameDetailUseCase {
         
         guard let id = id else { return AnyPublisher(Just(.failed(RequestError.commonError)))}
         
-        return gameRepository.fetchGame(id: id).compactMap { gameDto in
-            GameDetail(dto: gameDto)
-        }.convertToLoadedState()
-            .eraseToAnyPublisher()
+        return gameRepository.fetchGame(id: id).flatMap { [weak self] game -> AnyPublisher<GameDetail, Error> in
+            guard let `self` = self, let idCover = game.cover else {
+                return AnyPublisher<GameDetail, Error>(Just(GameDetail(dto: game))
+                    .setFailureType(to: Error.self))
+            }
+            return self.gameRepository.fetchImage(id: idCover)
+                .mapError { $0 as Error }
+                .map { GameDetail(dto:game, covers: $0.map({ imgDto in
+                    Cover(dto: imgDto)
+                })) }
+                .eraseToAnyPublisher()
+        }.collect()
+            .flatMap { games -> AnyPublisher<GameDetail, Error> in
+                return AnyPublisher<GameDetail, Error>(Just(games.first!)
+                    .setFailureType(to: Error.self)).eraseToAnyPublisher()
+            }
+            .convertToLoadedState().eraseToAnyPublisher()
     }
 }
 

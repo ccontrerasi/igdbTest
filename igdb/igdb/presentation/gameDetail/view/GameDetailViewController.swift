@@ -55,20 +55,33 @@ struct GameDetailViewController: View {
                     }
                 }
             }
-            VStack {
                 GeometryReader { geometry in
                     ScrollView {
-                        Text(game.name)
-                            .font(Font.dum.titleWelcome)
-                            .padding(.top, medium)
-                            .padding(.horizontal, medium)
-                        Text(game.createdAt.getOnlyDate())
-                            .lineLimit(1)
-                            .frame(width: geometry.size.width)
+                        VStack {
+                            Text(game.name)
+                                .font(Font.dum.titleWelcome)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.top, small)
+                                .padding(.horizontal, medium)
+                            
+                            Text(game.createdAt.getOnlyDate())
+                                .lineLimit(1)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.top, small)
+                                .padding(.horizontal, medium)
+                                .frame(width: geometry.size.width)
+                            
+                            if let sumary = game.summary {
+                                Text(sumary)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.top, small)
+                                    .padding(.horizontal, medium)
+                                    .frame(width: geometry.size.width)
+                            }
+                        }
                     }
-                }.padding()
+                }
             }
-        }
     }
 }
 

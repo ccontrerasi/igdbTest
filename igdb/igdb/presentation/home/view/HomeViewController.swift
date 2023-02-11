@@ -28,7 +28,9 @@ struct HomeViewController: View {
         ZStack {
             LoadingView(isLoading: $viewModel.isLoading, content: {
                 switch viewModel.statePaginated {
-                case .idle, .loading: splashView().onAppear { viewModel.launchLoading()}
+                case .idle, .loading: splashView().onAppear {
+                    viewModel.launchLoading()                    
+                }
                 case .failed(_): Text("Failed....")
                 case .result(let value):
                     generalView(home: value)
@@ -114,7 +116,7 @@ struct HomeViewController: View {
                     .resizable()
                     .ignoresSafeArea()
                     .scaledToFill()
-                VStack {
+                VStack(alignment: .center) {
                     Spacer()
                     Text(R.string.localizable.splashViewControllerTitle())
                         .font(Font.dum.titleSplash).padding(.horizontal, 34)

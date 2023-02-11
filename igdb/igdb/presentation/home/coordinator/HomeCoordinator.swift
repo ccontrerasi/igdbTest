@@ -41,10 +41,10 @@ struct HomeCoordinator<State: IHomeFlowStateProtocol, Content: View>: View {
     }
     
     @ViewBuilder private var navigationLinks: some View {
-        NavigationLink(tag: .goToDetail(), selection: activeLink, destination: goToDetail) { EmptyView() }        
+        NavigationLink(tag: .goToDetail(), selection: activeLink, destination: detailView) { EmptyView() }
     }
     
-    private func goToDetail() -> some View {
+    private func detailView() -> some View {
         var id: Int?
         if case let .goToDetail(param) = state.activeLink {
             id = param
@@ -52,7 +52,6 @@ struct HomeCoordinator<State: IHomeFlowStateProtocol, Content: View>: View {
         let rp = GameRepository(provider: AppDelegate.instance.getMoyaProvider())
         let uc = GameDetailUseCase(gameRepository: rp)
         let vm = GameDetailViewModel(useCase: uc, state: .idle, idGame: id)
-        return GameDetailCoordinator(state: vm,
-                                                content: { GameDetailViewController(viewModel: vm) })
+        return GameDetailViewController(viewModel: vm)
     }
 }

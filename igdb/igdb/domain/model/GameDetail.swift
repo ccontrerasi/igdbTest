@@ -40,9 +40,9 @@ struct GameDetail {
     let themes: [Int]?
     let artworks: [Int]?
     let languageSupports: [Int]?
-    var covers: [ImageDTO]?
+    var covers: [Cover]?
 
-    init(dto: GameDTO){
+    init(dto: GameDTO, covers: [Cover]? = nil){
         id = dto.id
         category = dto.category
         createdAt = dto.createdAt
@@ -74,6 +74,6 @@ struct GameDetail {
         themes = dto.themes
         artworks = dto.artworks
         languageSupports = dto.languageSupports
-        
+        self.covers = covers
     }
 }
