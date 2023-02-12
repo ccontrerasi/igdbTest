@@ -39,7 +39,7 @@ final class GameTests: XCTestCase {
         var result: LoadableState<Home>!
         let expectation = self.expectation(description: "games")
         let uc = HomeUseCase(gameRepository: gameRempositoryMockup)
-        uc.execute().sink { state in
+        uc.execute(offset: 50).sink { state in
             result = state
             expectation.fulfill()
         }.store(in: &cancellables)

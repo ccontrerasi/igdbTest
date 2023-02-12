@@ -57,7 +57,7 @@ final class HomeViewModel: ObservableObject, HomeViewModelProtocol, IHomeFlowSta
     func loadNextGames() {
         isLoading = true
         cancellables.removeAll()
-        useCase.execute(name: nil, offset: games.count).sink { [weak self] state in
+        useCase.execute(offset: games.count).sink { [weak self] state in
             guard let `self` = self else { return }
             self.isLoading = false
             switch state {
