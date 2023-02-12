@@ -10,7 +10,7 @@ import Combine
 import Moya
 
 protocol IHomeUseCase {
-    func execute(name: String?, offset: Int) -> AnyPublisher<LoadableState<Home>, Never>
+    func execute(offset: Int) -> AnyPublisher<LoadableState<Home>, Never>
     func getCover(id: Int) -> AnyPublisher<LoadableState<[Cover]>, Never>
 }
 
@@ -22,7 +22,7 @@ class HomeUseCase: IHomeUseCase {
         self.gameRepository = gameRepository
     }
     
-    func execute(name: String? = nil, offset: Int) -> AnyPublisher<LoadableState<Home>, Never> {
+    func execute(offset: Int) -> AnyPublisher<LoadableState<Home>, Never> {
         return gameRepository.fetchGames(offset: offset)
            .flatMap { games in
                games.publisher.setFailureType(to: Error.self)
@@ -70,7 +70,7 @@ class HomeUseCaseMock: IHomeUseCase {
                        Game(id: 6, name: "Game 6", createdAt: nil, url: "https://i.pcmag.com/imagery/lineups/01d5pjEt4Ql4nGhu3XjCkDn-2..v1583082659.jpg", covers: nil),
     ]
     
-    func execute(name: String?, offset: Int) -> AnyPublisher<LoadableState<Home>, Never> {
+    func execute(offset: Int) -> AnyPublisher<LoadableState<Home>, Never> {
         return Result<Home,Never>.Publisher.init(Home(status: .home, games: gameMockup))
             .convertToLoadedState()
             .eraseToAnyPublisher()
