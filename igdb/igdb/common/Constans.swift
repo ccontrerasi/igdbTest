@@ -16,7 +16,7 @@ let base_url = "https://api.igdb.com/"
 let api_app = "v4/"
 #endif
 let client_id = "ikefu3gjaojsnnt21ik7orxyofnztq"
-let bearer_token = "Bearer sy49sqc7hcdvzxej0qzzl325btk7ct"
+let bearer_token = "Bearer"
 let CFBundleShortVersionString = "CFBundleShortVersionString"
 var appVersion: String {
     get {
