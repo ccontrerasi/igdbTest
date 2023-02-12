@@ -1,0 +1,32 @@
+/*
+  Localizable.strings
+  dtiOurense
+
+  Created by Cristian Contreras on 6/2/23.
+  
+*/
+"splash.view.controller.title" = "Turismo Ourense";
+
+"welcome.view.controller.title" = "Hay un Ourense para tí.";
+"welcome.view.controller.button.next" = "¡Descúbrelo!";
+
+"home.view.controller.menu.start" = "Inicio";
+"home.view.controller.menu.search" = "Buscador";
+"home.view.controller.menu.map" = "Mapa";
+"home.view.controller.menu.user" = "Usuari@";
+"home.view.controller.menu.config" = "Ajustes";
+
+"start.view.controller.title" = "Inicio";
+
+"configuration.view.contreller.option.title" = "Ajustes";
+"configuration.view.contreller.option.language" = "Cambio de idioma";
+"configuration.view.contreller.option.notification" = "Notificaciones push";
+"configuration.view.contreller.option.help" = "Ayuda";
+"configuration.view.contreller.option.info.proyect" = "Información del proyecto";
+"configuration.view.contreller.option.info.legal" = "Información legal";
+"configuration.view.contreller.option.conditions" = "Condiciones del servicio";
+"configuration.view.contreller.option.contact" = "Contacto";
+
+"change.languabe.view.controller.spanish" = "Castellano";
+"change.languabe.view.controller.gallego" = "Gallego";
+"change.languabe.view.controller.english" = "English";
