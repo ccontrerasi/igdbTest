@@ -9,12 +9,13 @@
 //
 import SwiftUI
 
-struct GameDetailViewController: View {
-    @StateObject private var viewModel: GameDetailViewModel
+struct GameDetailViewController<Model>: View where Model: GameDetailViewModelProtocol {
+
+    @StateObject private var viewModel: Model
     
     // MARK: - Init
     
-    init(viewModel: GameDetailViewModel) {
+    init(viewModel: Model) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
@@ -87,17 +88,20 @@ struct GameDetailViewController: View {
 
 struct GameDetailViewController_Previews: PreviewProvider {
     static var previews: some View {
-        
-        let gameMock = GameDetail(dto: GameDTO(id: 1, category: 1,
-                                               createdAt: Date(), externalGames: nil, firstReleaseDate: nil, gameModes: nil,
-                                               genres: nil, name: "Description game", platforms: nil, releaseDates: nil,
-                                               screenshots: nil, similarGames: nil, slug: "slg", summary: nil, tags: nil,
-                                               updatedAt: Date(), url: "https://google.es", websites: nil, checksum: "Sumaryzed",
-                                               ageRatings: nil, alternativeNames: nil, collection: nil, cover: nil,
-                                               franchises: nil, involvedCompanies: nil, keywords: nil, playerPerspectives: nil,
-                                               status: nil, themes: nil, artworks: nil, languageSupports: nil))
-        GameDetailViewController(
-            viewModel: GameDetailViewModel(
-                useCase: GameDetailUseCaseMock(), state: .result(gameMock)))
+        GameDetailViewController(viewModel:
+                                    GameDetailViewModelMockup())
     }
+}
+
+private class GameDetailViewModelMockup: GameDetailViewModelProtocol {
+    var activeLink: GameDetailNavigationLink? = nil
+    var state: LoadableState<GameDetail> = .result(GameDetail(dto: GameDTO(id: 1, category: 1,
+                                                                           createdAt: Date(), externalGames: nil, firstReleaseDate: nil, gameModes: nil,
+                                                                           genres: nil, name: "Description game", platforms: nil, releaseDates: nil,
+                                                                           screenshots: nil, similarGames: nil, slug: "slg", summary: nil, tags: nil,
+                                                                           updatedAt: Date(), url: "https://google.es", websites: nil, checksum: "Sumaryzed",
+                                                                           ageRatings: nil, alternativeNames: nil, collection: nil, cover: nil,
+                                                                           franchises: nil, involvedCompanies: nil, keywords: nil, playerPerspectives: nil,
+                                                                           status: nil, themes: nil, artworks: nil, languageSupports: nil)))
+    func fetchGame() {}
 }

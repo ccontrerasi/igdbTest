@@ -15,7 +15,7 @@ protocol IGameRepository {
     func fetchGame(id: Int) -> AnyPublisher<GameDTO, Error>
 }
 
-class GameRepository: IGameRepository {
+final class GameRepository: IGameRepository {
     private let provider: MoyaProvider<ApiServices>
     
     init(provider: MoyaProvider<ApiServices>){

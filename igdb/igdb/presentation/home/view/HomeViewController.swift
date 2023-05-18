@@ -10,11 +10,13 @@
 import SwiftUI
 import Rswift
 
-struct HomeViewController: View {
-    @StateObject private var viewModel: HomeViewModel
+struct HomeViewController<Model>: View where Model: HomeViewModelProtocol {
+    @StateObject private var viewModel: Model
+    @State var textFilter: String = ""
     
     // MARK: - Init
-    init(viewModel: HomeViewModel) {
+    
+    init(viewModel: Model) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
@@ -53,6 +55,7 @@ struct HomeViewController: View {
     private func menuList(_ menus: [Game]) -> some View {
         VStack {
             ToolbarView(title: R.string.localizable.homeViewControllerTitle())
+            // TODO: Check list as element
             VerticalList(content: {
                 if menus.isEmpty {
                     VStack(alignment: .center) {
@@ -163,4 +166,29 @@ struct HomeViewController_Previews: PreviewProvider {
         ])
         HomeViewController(viewModel: HomeViewModel(useCase: HomeUseCaseMock(), state: .result(mock)))
     }
+}
+
+private class HomeViewModelMockup: HomeViewModelProtocol {
+    var state: LoadableState<Home> = .result(Home(status: .home, games: [
+        Game(id: 1, name: "Game 2", createdAt: nil, url: "https://i.insider.com/58c192e5402a6b1b008b51fe?width=750&format=jpeg&auto=webp", covers: nil)
+    ]))
+    
+    var statePaginated: LoadableState<Home> = .result(Home(status: .home, games: [
+        Game(id: 1, name: "Game 2", createdAt: nil, url: "https://i.insider.com/58c192e5402a6b1b008b51fe?width=750&format=jpeg&auto=webp", covers: nil)
+    ]))
+    
+    var activeLink: HomeNavigationLink? = nil
+    
+    var isLoading: Bool = false
+    
+    var showWelcome: Bool = false
+    
+    func welcomeShowed() { }
+    
+    func launchLoading() { }
+    
+    func goToDetail(id: Int) { }
+    
+    func loadNextGames() { }
+    
 }
