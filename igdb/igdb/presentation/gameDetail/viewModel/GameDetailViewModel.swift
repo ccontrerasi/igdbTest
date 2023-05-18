@@ -10,7 +10,9 @@
 import Foundation
 import Combine
 
-protocol GameDetailViewModelProtocol: ObservableObject {
+protocol GameDetailViewModelProtocol: ObservableObject, IGameDetailFlowStateProtocol {
+    var state: LoadableState<GameDetail> { get }
+    func fetchGame()
 }
 
 final class GameDetailViewModel: ObservableObject, GameDetailViewModelProtocol, IGameDetailFlowStateProtocol {

@@ -11,16 +11,21 @@ import Foundation
 import Combine
 import SwiftUI
 
-protocol HomeViewModelProtocol: ObservableObject {
+protocol HomeViewModelProtocol: ObservableObject, IHomeFlowStateProtocol {
+    var state: LoadableState<Home> { get }
+    var statePaginated: LoadableState<Home> { get }
+    var isLoading: Bool { get set }
+    var showWelcome: Bool { get set }
     func welcomeShowed()
     func launchLoading()
     func goToDetail(id: Int)
+    func loadNextGames()
 }
 
 final class HomeViewModel: ObservableObject, HomeViewModelProtocol, IHomeFlowStateProtocol {
 
     // MARK: - Properties
-    @Published private var state: LoadableState<Home>
+    @Published internal var state: LoadableState<Home>
     @Published private(set) var statePaginated: LoadableState<Home>
     @Published var activeLink: HomeNavigationLink?
     @Published var showWelcome: Bool = false

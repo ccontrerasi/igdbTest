@@ -26,7 +26,7 @@ extension ApiServices : TargetType {
     
     var path: String {
         switch self {
-        case .fetchGames(_), .fetchGame(_):
+        case .fetchGames, .fetchGame(_):
             return "games"
         case .fetchImageGame(_):
             return "covers"
